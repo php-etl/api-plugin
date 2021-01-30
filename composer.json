@@ -1,0 +1,61 @@
+{
+    "name": "php-etl/api-plugin",
+    "description": "Adapters for OpenAPI and JSON schema into ETL pipelines.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kiboko SAS",
+            "homepage": "http://kiboko.fr"
+        },
+        {
+            "name": "Grégory Planchat",
+            "email": "gregory@kiboko.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "php-etl/configurator-contracts": "^0.1",
+        "nikic/php-parser": "^4.9@dev",
+        "symfony/config": "^4.0 || ^5.0",
+        "php-etl/fast-map-config": "^0.2@dev",
+        "jane-php/json-schema-runtime": "dev-next as 7.0.0",
+        "jane-php/json-schema": "dev-next as 7.0.0",
+        "jane-php/open-api-2": "dev-next as 7.0.0",
+        "jane-php/open-api-3": "dev-next as 7.0.0",
+        "jane-php/open-api-runtime": "dev-next as 7.0.0",
+        "jane-php/open-api-common": "dev-next as 7.0.0"
+    },
+    "require-dev": {
+        "php-etl/pipeline-contracts": "^0.1.0@dev",
+        "phpunit/phpunit": "^9.0",
+        "phpunit/php-invoker": "*",
+        "johnkary/phpunit-speedtrap": "*",
+        "mybuilder/phpunit-accelerator": "*",
+        "phpspec/phpspec": "^7.0",
+        "friends-of-phpspec/phpspec-code-coverage": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kiboko\\Plugin\\API\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\Kiboko\\Plugin\\API\\": "spec/",
+            "unit\\Kiboko\\Plugin\\API\\": "unit/",
+            "functional\\Kiboko\\Plugin\\API\\": "functional/",
+            "performance\\Kiboko\\Plugin\\API\\": "performance/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}

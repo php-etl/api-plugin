@@ -1,0 +1,7 @@
+api:
+  openapi:
+    version: '2'
+    path: https://raw.githubusercontent.com/akeneo/pim-api-docs/master/content/swagger/akeneo-web-api.json
+    namespace: Foo
+  extractor:
+    endpoint: getProducts
