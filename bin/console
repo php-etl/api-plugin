@@ -75,9 +75,14 @@ class BuildCommand extends Console\Command\Command
 
         $config = $factory->normalize($config);
 
-        $style->info(sprintf('Writing sources to file %s', $input->getArgument('output')));
+        $style->info(sprintf('Writing sources to directory %s', realpath($input->getArgument('output'))));
 
         $repository = $factory->compile($config);
+
+        $directory = dirname($input->getArgument('output').'/function.php');
+        if (!file_exists($directory)) {
+            mkdir($directory, 0775, true);
+        }
         file_put_contents(
             $input->getArgument('output').'/function.php',
             (new PrettyPrinter\Standard())->prettyPrintFile([

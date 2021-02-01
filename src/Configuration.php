@@ -2,6 +2,7 @@
 
 namespace Kiboko\Plugin\API;
 
+use Kiboko\Plugin\API\Configuration\ContextConfiguration;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -18,6 +19,7 @@ final class Configuration implements ConfigurationInterface
                         ->enumNode('version')->isRequired()->values(['2', '3'])->end()
                         ->scalarNode('path')->isRequired()->end()
                         ->scalarNode('namespace')->isRequired()->end()
+                        ->append((new ContextConfiguration())->getConfigTreeBuilder()->getRootNode())
                     ->end()
                 ->end()
                 ->arrayNode('extractor')

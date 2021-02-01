@@ -2,7 +2,7 @@
 
 namespace Kiboko\Plugin\API;
 
-use Jane\Component\OpenApi2\JaneOpenApi;
+use Jane\Component\OpenApiCommon\Console\Loader\OpenApiMatcher;
 use Jane\Component\OpenApiCommon\Registry\Registry;
 use Jane\Component\OpenApiCommon\Registry\Schema;
 use Kiboko\Contract\Configurator;
@@ -55,28 +55,40 @@ final class Service implements Configurator\FactoryInterface
      */
     public function compile(array $config): Configurator\RepositoryInterface
     {
-        foreach ($config as $definition) {
-            $schema = new Schema(
-                $config['openapi']['path'],
-                $config['openapi']['namespace'],
-                '/src/'
-            );
+        $schema = new Schema(
+            $config['openapi']['path'],
+            $config['openapi']['namespace'],
+            'src'
+        );
 
-            $registry = new Registry();
-            $registry->setWhitelistedPaths([]);
-            $registry->setThrowUnexpectedStatusCode(true);
-            $registry->setCustomQueryResolver([]);
+        $registry = new Registry();
+        $registry->setWhitelistedPaths([]);
+        $registry->setThrowUnexpectedStatusCode(true);
+        $registry->setCustomQueryResolver([]);
 
-            $registry->addSchema($schema);
-            $jane = JaneOpenApi::build([
+        $registry->addSchema($schema);
+
+        $matcher = new OpenApiMatcher();
+
+        $class = $matcher->match($config['openapi']['path']);
+
+        $jane = $class::build(array_merge(
+            [
                 'reference' => true,
                 'strict' => false,
                 'skip-null-values' => false,
                 'endpoint-generator' => null,
-            ]);
+            ],
+            array_combine(
+                array_map(
+                    fn ($key) => str_replace('_', '-', $key),
+                    array_keys($config['openapi']['context'])
+                ),
+                array_values($config['openapi']['context']),
+            )
+        ));
 
-            $jane->generate($registry);
-        }
+        $jane->generate($registry);
 
         $capacity = new API\Builder\OpenAPI($registry);
 

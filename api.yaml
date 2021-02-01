@@ -3,5 +3,22 @@ api:
     version: '2'
     path: https://raw.githubusercontent.com/akeneo/pim-api-docs/master/content/swagger/akeneo-web-api.json
     namespace: Foo
+    context:
+      reference: true
+      date_format: 'c'
+      full_date_format: 'c'
+      date_prefer_interface: true
+      strict: true
+      use_fixer: true
+      clean_generated: true
+      use_cacheable_supports_method: true
+      skip_null_values: true
+      skip_required_fields: false
+      whitelisted_paths:
+        - '/product$'
+        - [ '/foo/(bar|baz)' ]
+        - [ '/published-products$', 'GET' ]
+        - [ '/product-models$', [ 'POST' ] ]
+        - [ '/product-models$', [ 'POST', 'PUT' ] ]
   extractor:
     endpoint: getProducts

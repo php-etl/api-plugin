@@ -22,11 +22,12 @@ final class OpenAPI implements Configurator\RepositoryInterface
 
         foreach ($registries as $jane) {
             foreach ($jane->getSchemas() as $schema) {
-                foreach ($schema->getFiles() as $file) {
-                    $this->addFiles(
-                        new File($file->getFilename(), $file->getNode()),
-                    );
-                }
+                $this->addFiles(
+                    ...array_map(
+                        fn ($file) => new File($file->getFilename(), $file->getNode()),
+                        $schema->getFiles()
+                    )
+                );
             }
         }
     }
