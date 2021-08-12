@@ -2,15 +2,16 @@
 
 namespace Kiboko\Plugin\API;
 
+use Kiboko\Component\Satellite\NamedConfigurationInterface;
 use Kiboko\Plugin\API\Configuration\ContextConfiguration;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-final class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface, NamedConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder('api');
+        $builder = new TreeBuilder($this->getName());
 
         $builder->getRootNode()
             ->children()
@@ -30,5 +31,10 @@ final class Configuration implements ConfigurationInterface
             ->end();
 
         return $builder;
+    }
+
+    public function getName(): string
+    {
+        return 'api';
     }
 }

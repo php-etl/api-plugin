@@ -17,10 +17,10 @@
     "require": {
         "php": "^8.0",
         "ext-json": "*",
-        "php-etl/configurator-contracts": "^0.1",
+        "php-etl/configurator-contracts": "^0.2",
         "nikic/php-parser": "^4.9@dev",
         "symfony/config": "^4.0 || ^5.0",
-        "php-etl/fast-map-config": "^0.2@dev",
+        "php-etl/fast-map-config": "^0.5@dev",
         "jane-php/json-schema-runtime": "dev-next as 7.0.0",
         "jane-php/json-schema": "dev-next as 7.0.0",
         "jane-php/open-api-2": "dev-next as 7.0.0",
@@ -55,7 +55,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.x-dev"
+            "dev-master": "0.2.x-dev"
         }
     }
 }
